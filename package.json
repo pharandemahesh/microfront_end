@@ -1,0 +1,20 @@
+{
+    "name": "mfe-project-root",
+    "private": true,
+    "workspaces": [
+        "host",
+        "home",
+        "data",
+        "settings"
+    ],
+    "scripts": {
+        "start": "concurrently \"npm start --workspace=host\" \"npm start --workspace=home\" \"npm start --workspace=data\" \"npm start --workspace=settings\""
+    },
+    "devDependencies": {
+        "@babel/core": "^7.29.0",
+        "@babel/preset-env": "^7.29.0",
+        "@babel/preset-react": "^7.28.5",
+        "babel-loader": "^10.0.0",
+        "concurrently": "^8.2.0"
+    }
+}

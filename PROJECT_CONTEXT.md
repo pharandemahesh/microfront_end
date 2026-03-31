@@ -6,12 +6,17 @@
 - **Build Tools:** Webpack 5 (with Module Federation), Babel (`@babel/preset-react`, `@babel/preset-env`), NPM Workspaces (monorepo structure)
 
 ## Folder Architecture (NPM Workspaces)
-This project is structured as a monorepo utilizing NPM workspaces. It consists of a container app (`host`) and several remote micro-frontend applications (`home`, `data`, `settings`).
+This project is structured as a monorepo utilizing NPM workspaces. It consists of a container app (`host`) and several remote micro-frontend applications (`home`, `data`, `settings`, and `state`).
 
 ### `host/`
 The container/shell application. It runs on `localhost:3000` and is responsible for overall layout, routing, and asynchronously loading the remote applications. 
 - `/src/index.js` & `/src/bootstrap.js`: Entry points for asynchronous loading required by Webpack Module Federation.
 - `/src/App.js`: Main application layout integrating the remote components.
+
+### `state/`
+Remote micro-frontend for global state management. It runs on `localhost:3004`.
+- Exposes `./store` (from `./src/store.js`) via `remoteEntry.js`.
+- Implements a Hybrid State Architecture using **Zustand**: stores truly global data (themes, auth, notifications), while giving page micro-frontends autonomy for their local states. Use `zustand` as a shared singleton in Webpack.
 
 ### `home/`
 Remote micro-frontend for the Home section. It runs on `localhost:3001`.
@@ -41,4 +46,4 @@ Remote micro-frontend for the Settings section. It runs on `localhost:3003`.
 - **Entry Points:** The root entry point for running the development environment is the `package.json` in the root directory. Running `npm run start` triggers `concurrently` to boot up all 4 Webpack dev servers (`host`, `home`, `data`, `settings`).
 - **Webpack Configs:** Each workspace has a `webpack.config.js` defining its role (host vs. remote) in the federation. (e.g., `host/webpack.config.js` defines remotes like `home@http://localhost:3001/remoteEntry.js`).
 - Shared common webpack configuration is maintained in `webpack.common.js` at the root and merged in remote configs.
-- **Key Dependencies:** `react`, `react-dom`, `react-router-dom`, `webpack`, `webpack-cli`, `concurrently`.
+- **Key Dependencies:** `react`, `react-dom`, `react-router-dom`, `webpack`, `webpack-cli`, `concurrently`, `zustand`.

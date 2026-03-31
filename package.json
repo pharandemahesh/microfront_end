@@ -5,10 +5,11 @@
         "host",
         "home",
         "data",
-        "settings"
+        "settings",
+        "state"
     ],
     "scripts": {
-        "start": "concurrently \"npm start --workspace=host\" \"npm start --workspace=home\" \"npm start --workspace=data\" \"npm start --workspace=settings\""
+        "start": "concurrently \"npm start --workspace=host\" \"npm start --workspace=home\" \"npm start --workspace=data\" \"npm start --workspace=settings\" \"npm start --workspace=state\""
     },
     "devDependencies": {
         "@babel/core": "^7.29.0",

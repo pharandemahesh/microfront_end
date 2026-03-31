@@ -8,26 +8,22 @@ module.exports = merge(commonConfig, {
         publicPath: "auto",
     },
     devServer: {
-        port: 3003,
+        port: 3004,
         headers: {
             "Access-Control-Allow-Origin": "*",
         },
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "settings",
-            filename: "remoteEntry.js", // This is the manifest file the Host reads
-            remotes: {
-                state: "state@http://localhost:3004/remoteEntry.js",
-            },
+            name: "state",
+            filename: "remoteEntry.js",
             exposes: {
-                "./SettingsPage": "./src/Settings", // The key used by the Host
+                "./store": "./src/store",
             },
             shared: {
                 ...deps,
                 react: { singleton: true, requiredVersion: deps.react },
-                "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
-                zustand: { singleton: true },
+                zustand: { singleton: true }
             },
         }),
     ],

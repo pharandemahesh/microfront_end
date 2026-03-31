@@ -15,8 +15,11 @@ module.exports = merge(commonConfig, {
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "home", // Fixed trailing space
+            name: "home", 
             filename: "remoteEntry.js",
+            remotes: {
+                state: "state@http://localhost:3004/remoteEntry.js",
+            },
             exposes: {
                 "./HomePage": "./src/Home",
             },
@@ -24,6 +27,7 @@ module.exports = merge(commonConfig, {
                 ...deps,
                 react: { singleton: true, requiredVersion: deps.react },
                 "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
+                zustand: { singleton: true },
             },
         }),
     ],

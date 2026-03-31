@@ -18,6 +18,9 @@ module.exports = merge(commonConfig, {
         new ModuleFederationPlugin({
             name: "data",
             filename: "remoteEntry.js", // This is the manifest file the Host reads
+            remotes: {
+                state: "state@http://localhost:3004/remoteEntry.js",
+            },
             exposes: {
                 "./DataPage": "./src/Data", // The key used by the Host
             },
@@ -25,6 +28,7 @@ module.exports = merge(commonConfig, {
                 ...deps,
                 react: { singleton: true, requiredVersion: deps.react },
                 "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
+                zustand: { singleton: true },
             },
         }),
     ]

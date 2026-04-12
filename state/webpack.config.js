@@ -3,7 +3,7 @@ const deps = require("./package.json").dependencies;
 const { merge } = require('webpack-merge');
 const commonConfig = require('../webpack.common.js');
 
-module.exports = merge(commonConfig, {
+module.exports = (_, argv = {}) => merge(commonConfig, {
     output: {
         publicPath: "auto",
     },

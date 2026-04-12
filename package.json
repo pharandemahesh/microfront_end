@@ -9,7 +9,9 @@
         "state"
     ],
     "scripts": {
-        "start": "concurrently \"npm start --workspace=host\" \"npm start --workspace=home\" \"npm start --workspace=data\" \"npm start --workspace=settings\" \"npm start --workspace=state\""
+        "start": "concurrently \"npm start --workspace=host\" \"npm start --workspace=home\" \"npm start --workspace=data\" \"npm start --workspace=settings\" \"npm start --workspace=state\"",
+        "build:workspaces": "npm run build --workspace=host && npm run build --workspace=home && npm run build --workspace=data && npm run build --workspace=settings && npm run build --workspace=state",
+        "build": "npm run build:workspaces && node scripts/assemble-deploy.js"
     },
     "devDependencies": {
         "@babel/core": "^7.29.0",
